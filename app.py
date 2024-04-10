@@ -55,13 +55,13 @@ def rag_implementation(file_path):
         # Initialize the PDF Lyzr ChatBot
         rag = ChatBot.pdf_chat(
             input_files=[file_path],
-            llm_params={"model": "gpt-3.5-turbo"},
+            llm_params={"model": "gpt-4"},
         )
     elif file_extension.lower() == ".docx":
         # Initialize the DOCX Lyzr ChatBot
         rag = ChatBot.docx_chat(
             input_files=[file_path],
-            llm_params={"model": "gpt-3.5-turbo"},
+            llm_params={"model": "gpt-4"},
         )
     else:
         # Handle unsupported file types
@@ -71,15 +71,23 @@ def rag_implementation(file_path):
 
 
 # Function to get Lyzr response
-def resume_response(file_path, ambition):
+def advisor_response(file_path, ambition):
     rag = rag_implementation(file_path)
-    prompt = f"""To generate advice for the uploaded document, please follow the instructions below:
-                     - Course work and grades: Being a Student Advisor, look into the uploaded document and give important insights about where the student performance lies.
-                     - Ambition: Being a Student Advisor, knowing the student's ambition from {ambition}, look into it and advise them on the steps needed to excel in those ambitions. 
-                     - Academic advice: Being a Student Advisor, look into the uploaded document and give important insights about where the student's strength and weaknesses lie and how to improve them.
-                     - Career guidance: Being a Student Advisor, taking the student's ambition, coursework, and grades into consideration, provide necessary suggestions. 
-                     - Personal development: Being a Student Advisor, suggest the student steps to ensure high productivity with time management techniques, extracurricular activities, etc. 
-                     - Follow all these steps carefully. Provide the response like a student advisor. """
+    prompt = f"""Your name is Isha, always remember that, and you are a student advisor at a university. Always introduce yourself.
+                 
+                 To generate advice for the uploaded document, please follow the instructions below:
+                    
+                      - Course work and grades: Being a Student Advisor, look into the uploaded marksheet and give important insights about where the student performance lies.
+                     
+                      - Ambition: Informed by the student's ambition (replace {ambition}), advise them on the steps required to excel in their chosen path.
+                     
+                      - Academic advice: Being a Student Advisor, look into the uploaded document and give important insights about where the student's strength and weaknesses lie and how to improve them.
+                     
+                      - Career guidance: Being a student Advisor utilize the student's ambition, coursework, and grades, offer pertinent suggestions for their career trajectory.
+                     
+                      - Personal development: Being a student Advisor offer guidance on fostering high productivity through effective time management techniques and engaging in relevant extracurricular activities.
+                     
+                      - Please ensure adherence to these steps and provide responses akin to a student advisor. """
 
     response = rag.chat(prompt)
     return response.response
@@ -104,7 +112,7 @@ if uploaded_file is not None:
         if not ambition:
             st.warning("Please enter your ambition.")
         else:
-            automatic_response = resume_response(file_path, ambition)
+            automatic_response = advisor_response(file_path, ambition)
             st.markdown(automatic_response)
 
 # Footer or any additional information
