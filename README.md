@@ -122,9 +122,4 @@ pip install -r requirements.txt
 
 ---
 
-## Contact
-For issues or inquiries, please contact:
-- **Developer**: Akshay Keerthi
-- **Email**: [adhikasavansuresh.a@northeastern.edu](mailto:adhikasavansuresh.a@northeastern.edu)
-- **Website**: [Lyzr AI](https://www.lyzr.ai/)
 
